@@ -1,0 +1,55 @@
+Step 1: Open Two Terminals
+You need two separate terminals — one for backend, one for frontend.
+
+Step 2: Start the Backend (Terminal 1)
+powershell
+# Navigate to backend
+cd C:\Users\Vivek\.gemini\antigravity\scratch\playto-kyc-pipeline\backend
+# Activate the virtual environment
+.\venv\Scripts\activate
+# Run database migrations (first time only)
+python manage.py makemigrations users kyc notifications
+python manage.py migrate
+# Seed the database with demo data (first time only)
+python manage.py shell < seed.py
+# Start the Django server
+python manage.py runserver 8000
+You should see: Starting development server at http://127.0.0.1:8000/
+
+Step 3: Start the Frontend (Terminal 2)
+powershell
+# Navigate to frontend
+cd C:\Users\Vivek\.gemini\antigravity\scratch\playto-kyc-pipeline\frontend
+# Install dependencies (first time only)
+npm install
+# Start the Vite dev server
+npm run dev
+You should see: Local: http://localhost:5173/
+
+Step 4: Open in Browser
+Go to http://localhost:5173/
+
+Step 5: Login with Demo Credentials
+Role	Email	Password
+Merchant 1	merchant1@example.com	merchant123
+Merchant 2	merchant2@example.com	merchant123
+Reviewer	reviewer@example.com	reviewer123
+What to Test
+As Merchant (merchant2@example.com):
+See your dashboard with submission #2 (Under Review, SLA At Risk)
+Click "+ New Submission" to create a KYC form
+Fill personal details → business details → upload documents → submit
+As Reviewer (reviewer@example.com):
+See the reviewer dashboard with queue stats
+Pick up submitted submissions
+Approve / Reject / Request More Info
+Run Backend Tests:
+powershell
+cd C:\Users\Vivek\.gemini\antigravity\scratch\playto-kyc-pipeline\backend
+.\venv\Scripts\activate
+python manage.py test tests -v 2
+Should show: Ran 15 tests — OK
+
+To Stop
+Terminal 1 (backend): Press Ctrl + C
+Terminal 2 (frontend): Press Ctrl + C
