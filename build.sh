@@ -10,10 +10,10 @@ pip install -r requirements.txt
 
 echo "=== Installing frontend dependencies ==="
 cd ../frontend
-npm install
+npm ci
 
 echo "=== Building frontend ==="
-npm run build
+npx --yes vite build
 
 echo "=== Running Django collectstatic ==="
 cd ../backend
